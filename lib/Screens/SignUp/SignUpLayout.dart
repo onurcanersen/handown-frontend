@@ -6,6 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import '../Login/LoginLayout.dart';
 import '../Main/Main.dart';
 import '../Welcome/welcome_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+TextEditingController passwordController = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController fullNameController = TextEditingController();
+
 
 class SignUpLayout extends StatefulWidget {
   const SignUpLayout({Key? key}) : super(key: key);
@@ -88,6 +95,7 @@ class _SignUpLayoutState extends State<SignUpLayout> {
                   height: size.height * 0.1,
                   width: size.width * 0.8,
                   child: TextFormField(
+                    controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     validator: (sValue) {
                       if (sValue == null || sValue.isEmpty) {
@@ -135,6 +143,7 @@ class _SignUpLayoutState extends State<SignUpLayout> {
                   width: size.width * 0.8,
                   child: TextFormField(
                     keyboardType: TextInputType.name,
+                    controller: fullNameController,
                     validator: (sValue) {
                       if (sValue == null || sValue.isEmpty) {
                         return 'Please enter a meaningful text';
@@ -165,9 +174,27 @@ class _SignUpLayoutState extends State<SignUpLayout> {
                       height: size.height * 0.075,
                       width: size.width * 0.8,
                       child: TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // Validate returns true if the form is valid, or false otherwise.
                             if (formGlobalKey2.currentState!.validate()) {
+                              var splittedName = fullNameController.text.split(' ');
+                              var name = splittedName[0];
+                              var surname = splittedName[1];
+                              final response = await http.post(
+                                  Uri.parse(
+                                      'https://us-central1-handown.cloudfunctions.net/users/signup'),
+                                  headers: <String, String>{
+                                    'Content-Type':
+                                        'application/json; charset=UTF-8',
+                                  },
+                                  body: jsonEncode(<String, String>{
+                                      "email": emailController.text,
+                                      "name": name,
+                                      "surname": surname,
+                                      "password": passwordController.text,
+                                      "type": "SELLER"
+                                  }),
+                                );
                               // If the form is valid, display a snackbar. In the real world,
                               // you'd often call a server or save the information in a database.
                               Navigator.push(
@@ -247,11 +274,12 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     return TextFormField(
         keyboardType: TextInputType.visiblePassword,
+        controller: passwordController,
         obscureText: obsecurePassword,
         validator: (sValue) {
           if (sValue == null || sValue.isEmpty) {
             return 'Please enter a meaningful text';
-          } else if (sValue.length < 8) {
+          } else if (sValue.length < 2) {
             return 'Password is shorter than 8 characters.';
           }
           return null;
