@@ -160,18 +160,17 @@ class _LoginLayoutState extends State<LoginLayout> {
                                   }),
                                 );
                                 if (response.statusCode == 200) {
-                                  print("tamamdir hojam");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return Main();
+                                      },
+                                    ),
+                                  );
                                 } else {
                                   print("tamamdir degildir hojam");
                                 }
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return Main();
-                                    },
-                                  ),
-                                );
                               }
                             },
                             child: Text("Login",
