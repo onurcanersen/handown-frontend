@@ -201,7 +201,7 @@ class _SignUpLayoutState extends State<SignUpLayout> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return Main();
+                                    return Main(userEmail: emailController.text, userName: name, userSurname: surname);
                                   },
                                 ),
                               );

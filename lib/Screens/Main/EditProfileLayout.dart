@@ -4,7 +4,11 @@ import 'package:handown/Screens/Login/LoginLayout.dart';
 import 'package:handown/Screens/Main/Main.dart';
 
 class EditProfileLayout extends StatefulWidget {
-  const EditProfileLayout({Key? key}) : super(key: key);
+  EditProfileLayout({Key? key, required this.userEmail, required this.userName ,required this.userSurname}) : super(key: key);
+
+  final String userEmail;
+  final String userName;
+  final String userSurname;
 
   @override
   State<EditProfileLayout> createState() => _EditProfileLayoutState();
@@ -155,7 +159,7 @@ class _EditProfileLayoutState extends State<EditProfileLayout> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return const Main();
+                                      return Main(userEmail: widget.userEmail, userName: widget.userName, userSurname: widget.userSurname);
                                     },
                                   ),
                                 );

@@ -160,11 +160,15 @@ class _LoginLayoutState extends State<LoginLayout> {
                                   }),
                                 );
                                 if (response.statusCode == 200) {
+                                  final decodedResponse = jsonDecode(response.body);
+                                  print(decodedResponse);
+                                  print(decodedResponse[0]["email"]);
+                                  
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return Main();
+                                        return Main(userEmail: decodedResponse[0]["email"], userName: decodedResponse[0]["name"], userSurname: decodedResponse[0]["surname"]);
                                       },
                                     ),
                                   );

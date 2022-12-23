@@ -6,21 +6,29 @@ import 'package:handown/Screens/Main/SearchLayout.dart';
 import 'package:provider/provider.dart';
 
 class Main extends StatelessWidget {
-  const Main({super.key});
+  Main({super.key, required this.userEmail, required this.userName ,required this.userSurname});
 
   static const String _title = 'Flutter Code Sample';
 
+  final String userEmail;
+  final String userName;
+  final String userSurname;
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       title: _title,
-      home: MyStatefulWidget(),
+      home: MyStatefulWidget(userEmail: userEmail, userName: userName, userSurname: userSurname),
     );
   }
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+   MyStatefulWidget({super.key, required this.userEmail, required this.userName ,required this.userSurname});
+
+  final String userEmail;
+  final String userName;
+  final String userSurname;
 
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
@@ -30,7 +38,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static final List<Widget> _widgetOptions = <Widget>[
+  late final List<Widget> _widgetOptions = <Widget>[
     ChangeNotifierProvider(
       create: (context) => CartModel(),
       child: const MaterialApp(
@@ -38,7 +46,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ),
     ),
     const SearchLayout(),
-    const ProfileLayout(),
+    ProfileLayout(userEmail: widget.userEmail, userName: widget.userName, userSurname: widget.userSurname),
     //CartLayout(), Çalışmıyor bu ya üzüyo beni
   ];
 

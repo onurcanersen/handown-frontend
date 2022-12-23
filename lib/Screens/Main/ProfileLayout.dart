@@ -5,7 +5,10 @@ import 'EditProfileLayout.dart';
 import 'SellProfileLayout.dart';
 
 class ProfileLayout extends StatefulWidget {
-  const ProfileLayout({Key? key}) : super(key: key);
+  ProfileLayout({Key? key, required this.userEmail, required this.userName ,required this.userSurname}) : super(key: key);
+  final String userEmail;
+  final String userName;
+  final String userSurname;
 
   @override
   State<ProfileLayout> createState() => _ProfileLayoutState();
@@ -26,7 +29,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
             child: Image.asset('assets/images/pngegg.png'),
           ),
           Text(
-            'Burak Atlamaz',
+            widget.userName + " " + widget.userSurname,
             textAlign: TextAlign.center,
             style: GoogleFonts.notoSerif(
               fontSize: 36.0,
@@ -34,7 +37,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
             ),
           ),
           Text(
-            'atlamaz18@itu.edu.tr\n+90 538 794 59 44',
+            widget.userEmail,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey[600],
@@ -66,7 +69,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const EditProfileLayout();
+                          return EditProfileLayout(userEmail: widget.userEmail, userName: widget.userName, userSurname: widget.userSurname);
                         },
                       ),
                     ),
