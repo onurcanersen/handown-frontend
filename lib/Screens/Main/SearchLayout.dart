@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:handown/Components/shopping_item.dart';
+import 'package:provider/provider.dart';
+import 'package:handown/Models/shopping_model.dart';
 
 class SearchLayout extends StatefulWidget {
   const SearchLayout({Key? key}) : super(key: key);
@@ -8,6 +13,7 @@ class SearchLayout extends StatefulWidget {
 }
 
 class _SearchLayoutState extends State<SearchLayout> {
+  var products = [];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,6 +40,23 @@ class _SearchLayoutState extends State<SearchLayout> {
             ),
             SizedBox(height: size.height * 0.015),
             TextField(
+              onSubmitted: (value) async {
+                final response = await http.post(
+                  Uri.parse(
+                      'https://us-central1-handown.cloudfunctions.net/products/search'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json; charset=UTF-8',
+                  },
+                  body: jsonEncode(<String, String>{
+                    "product_name": value,
+                  }),
+                );
+                if (response.statusCode == 200) {
+                  setState(() {
+                    products = jsonDecode(response.body);
+                  });
+                }
+              },
               style: TextStyle(
                 color: Colors.black87,
               ),
@@ -51,6 +74,26 @@ class _SearchLayoutState extends State<SearchLayout> {
             ),
             SizedBox(
               height: size.height * 0.015,
+            ),
+            GridView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(6),
+              itemCount: products.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1 / 1,
+              ),
+              itemBuilder: (context, index) {
+                return ShoppingItemTile(
+                  itemName: products[index]["product_name"],
+                  itemPrice: products[index]["product_price"],
+                  imagePath: "assets/images/laptop.png",
+                  color: Colors.green,
+                  onPressed: () =>
+                      Provider.of<CartModel>(context, listen: false)
+                          .addItemToCart(index),
+                );
+              },
             ),
             Expanded(
               child: ListView(),
