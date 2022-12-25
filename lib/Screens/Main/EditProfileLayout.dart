@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:handown/Screens/Login/LoginLayout.dart';
 import 'package:handown/Screens/Main/Main.dart';
+import 'package:handown/Screens/Main/ProfileLayout.dart';
 
 class EditProfileLayout extends StatefulWidget {
-  EditProfileLayout({Key? key, required this.userEmail, required this.userName ,required this.userSurname}) : super(key: key);
+  EditProfileLayout(
+      {Key? key,
+      required this.userEmail,
+      required this.userName,
+      required this.userSurname})
+      : super(key: key);
 
   final String userEmail;
   final String userName;
@@ -39,7 +44,10 @@ class _EditProfileLayoutState extends State<EditProfileLayout> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return const LoginLayout();
+                                return ProfileLayout(
+                                    userEmail: widget.userEmail,
+                                    userName: widget.userName,
+                                    userSurname: widget.userSurname);
                               },
                             ),
                           );
@@ -159,7 +167,10 @@ class _EditProfileLayoutState extends State<EditProfileLayout> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return Main(userEmail: widget.userEmail, userName: widget.userName, userSurname: widget.userSurname);
+                                      return Main(
+                                          userEmail: widget.userEmail,
+                                          userName: widget.userName,
+                                          userSurname: widget.userSurname);
                                     },
                                   ),
                                 );

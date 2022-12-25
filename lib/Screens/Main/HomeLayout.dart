@@ -56,9 +56,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               enlargeCenterPage: true,
             ),
           ),
-          const SizedBox(
-            height: 3,
-          ),
+
           const Divider(
             thickness: 2.0,
           ),

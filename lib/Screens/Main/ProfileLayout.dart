@@ -5,7 +5,12 @@ import 'EditProfileLayout.dart';
 import 'SellProfileLayout.dart';
 
 class ProfileLayout extends StatefulWidget {
-  ProfileLayout({Key? key, required this.userEmail, required this.userName ,required this.userSurname}) : super(key: key);
+  ProfileLayout(
+      {Key? key,
+      required this.userEmail,
+      required this.userName,
+      required this.userSurname})
+      : super(key: key);
   final String userEmail;
   final String userName;
   final String userSurname;
@@ -69,7 +74,10 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return EditProfileLayout(userEmail: widget.userEmail, userName: widget.userName, userSurname: widget.userSurname);
+                          return EditProfileLayout(
+                              userEmail: widget.userEmail,
+                              userName: widget.userName,
+                              userSurname: widget.userSurname);
                         },
                       ),
                     ),
@@ -98,8 +106,7 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: const Text('Warning'),
-                      content: const Text(
-                          'Do you really want to delete your profile'),
+                      content: const Text('Do you really want to log out'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.pop(context, 'No'),
