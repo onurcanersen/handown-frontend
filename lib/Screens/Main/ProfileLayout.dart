@@ -145,7 +145,10 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const SellProfileLayout();
+                      return SellProfileLayout(
+                          userEmail: widget.userEmail,
+                          userName: widget.userName,
+                          userSurname: widget.userSurname);
                     },
                   ),
                 ),

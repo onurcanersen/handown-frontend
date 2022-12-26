@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:handown/Components/shopping_item.dart';
 import 'package:handown/Models/shopping_model.dart';
 import 'package:handown/Screens/Main/CartLayout.dart';
@@ -16,6 +17,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    const Color appBarColor = Color(0xff252525);
     final List<String> imgList = [
       'assets/images/carousel_image.png',
       'assets/images/free_shipping.jpg',
@@ -23,18 +25,6 @@ class _HomeLayoutState extends State<HomeLayout> {
     ];
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return const CartLayout();
-            },
-          ),
-        ),
-        child: const Icon(Icons.shopping_bag),
-      ),
       body: Column(
         children: [
           SizedBox(
@@ -61,33 +51,77 @@ class _HomeLayoutState extends State<HomeLayout> {
             thickness: 2.0,
           ),
 
-          //Burası biraz deneysel
-
-          Expanded(
-            child: Consumer<CartModel>(
-              builder: (context, value, child) {
-                return GridView.builder(
-                  padding: const EdgeInsets.all(6),
-                  itemCount: value.shopItems.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1 / 1,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ShoppingItemTile(
-                      itemName: value.shopItems[index][0],
-                      itemPrice: value.shopItems[index][1],
-                      imagePath: value.shopItems[index][2],
-                      color: value.shopItems[index][3],
-                      onPressed: () =>
-                          Provider.of<CartModel>(context, listen: false)
-                              .addItemToCart(index),
-                    );
-                  },
-                );
-              },
+          Padding(
+            padding: const EdgeInsets.all(28.0),
+            child: Text(
+              'We deliver everything at your doorstep',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.notoSerif(
+                  fontSize: 36, fontWeight: FontWeight.bold),
             ),
           ),
+
+          // groceree gives you fresh vegetables and fruits
+          Text(
+            'Whatever you want',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.grey[700],
+            ),
+          ),
+          Text(
+            "It's only up to you",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[700],
+            ),
+          ),
+
+          const Spacer(),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: size.height * 0.024,
+                right: size.height * 0.024,
+                bottom: size.height * 0.05,
+                top: size.height * 0.06,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  color: appBarColor,
+                ),
+                child: TextButton(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.height * 0.017,
+                        horizontal: size.height * 0.135),
+                    child: const Text(
+                      'Get Started',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomeLayout();
+                        },
+                      ),
+                    ),
+                  },
+                ),
+              ),
+            ),
+          ),
+
+          const Spacer(),
+          //Burası biraz deneysel
         ],
       ),
     );
