@@ -33,158 +33,159 @@ class _EditProfileLayoutState extends State<EditProfileLayout> {
           children: [
             Form(
               key: formGlobalKey3,
-              child: Column(
-                children: [
-                  SizedBox(height: size.height * 0.025),
-                  Align(
-                    alignment: const Alignment(-0.8, -0.2),
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return ProfileLayout(
-                                    userEmail: widget.userEmail,
-                                    userName: widget.userName,
-                                    userSurname: widget.userSurname);
-                              },
-                            ),
-                          );
-                        },
-                        icon: const Icon(Icons.arrow_back_ios),
-                        color: const Color.fromRGBO(29, 115, 137, 1),
-                        iconSize: 30),
-                  ),
-                  const Text("Edit Profile",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold)),
-                  SizedBox(height: size.height * 0.035),
-                  ImageProfile(),
-                  SizedBox(height: size.height * 0.015),
-                  const Align(
-                    alignment: Alignment(-0.80, 0),
-                    child: Text("Change Address",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 15.5,
-                            color: Colors.black,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  SizedBox(height: size.height * 0.015),
-                  SizedBox(
-                    height: size.height * 0.1,
-                    width: size.width * 0.8,
-                    child: TextFormField(
-                      keyboardType: TextInputType.streetAddress,
-                      validator: (sValue) {
-                        if (sValue == null || sValue.isEmpty) {
-                          return 'Please enter a meaningful text';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          hintText: "ITU Vadi Dormitories"),
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: const Alignment(-0.8, -0.2),
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ProfileLayout(
+                                      userEmail: widget.userEmail,
+                                      userName: widget.userName,
+                                      userSurname: widget.userSurname);
+                                },
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.arrow_back_ios),
+                          color: const Color.fromRGBO(29, 115, 137, 1),
+                          iconSize: 30),
                     ),
-                  ),
-                  SizedBox(height: size.height * 0.015),
-                  const Align(
-                    alignment: Alignment(-0.80, 0),
-                    child: Text("Change E-mail",
-                        textAlign: TextAlign.left,
+                    const Text("Edit Profile",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 15.5,
+                            fontSize: 25,
                             color: Colors.black,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold)),
-                  ),
-                  SizedBox(height: size.height * 0.015),
-                  SizedBox(
-                    height: size.height * 0.1,
-                    width: size.width * 0.8,
-                    child: TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (sValue) {
-                        if (sValue == null || sValue.isEmpty) {
-                          return 'Please enter a meaningful text';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          hintText: "abc@itu.edu.tr"),
+                    SizedBox(height: size.height * 0.015),
+                    ImageProfile(),
+                    SizedBox(height: size.height * 0.015),
+                    const Align(
+                      alignment: Alignment(-0.80, 0),
+                      child: Text("Change Address",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 15.5,
+                              color: Colors.black,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold)),
                     ),
-                  ),
-                  SizedBox(height: size.height * 0.015),
-                  const Align(
-                    alignment: Alignment(-0.80, 0),
-                    child: Text("Password",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 15.5,
-                            color: Colors.black,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  SizedBox(height: size.height * 0.015),
-                  SizedBox(
-                      height: size.height * 0.1,
+                    SizedBox(height: size.height * 0.015),
+                    SizedBox(
+                      height: size.height * 0.08,
                       width: size.width * 0.8,
-                      child: const PasswordField()),
-                  SizedBox(height: size.height * 0.015),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        height: size.height * 0.075,
-                        width: size.width * 0.8,
-                        child: const DecoratedBox(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                color: Color.fromRGBO(29, 115, 137, 1))),
+                      child: TextFormField(
+                        keyboardType: TextInputType.streetAddress,
+                        validator: (sValue) {
+                          if (sValue == null || sValue.isEmpty) {
+                            return 'Please enter a meaningful text';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            hintText: "ITU Vadi Dormitories"),
                       ),
-                      SizedBox(
-                        height: size.height * 0.075,
-                        width: size.width * 0.8,
-                        child: TextButton(
-                            onPressed: () {
-                              // Validate returns true if the form is valid, or false otherwise.
-                              if (formGlobalKey3.currentState!.validate()) {
-                                // If the form is valid, display a snackbar. In the real world,
-                                // you'd often call a server or save the information in a database.
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return Main(
-                                          userEmail: widget.userEmail,
-                                          userName: widget.userName,
-                                          userSurname: widget.userSurname);
-                                    },
-                                  ),
-                                );
-                              }
-                            },
-                            child: const Text("Login",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal))),
+                    ),
+                    SizedBox(height: size.height * 0.015),
+                    const Align(
+                      alignment: Alignment(-0.80, 0),
+                      child: Text("Change E-mail",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 15.5,
+                              color: Colors.black,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(height: size.height * 0.015),
+                    SizedBox(
+                      height: size.height * 0.08,
+                      width: size.width * 0.8,
+                      child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (sValue) {
+                          if (sValue == null || sValue.isEmpty) {
+                            return 'Please enter a meaningful text';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            hintText: "abc@itu.edu.tr"),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(height: size.height * 0.015),
+                    const Align(
+                      alignment: Alignment(-0.80, 0),
+                      child: Text("Password",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 15.5,
+                              color: Colors.black,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(height: size.height * 0.015),
+                    SizedBox(
+                        height: size.height * 0.08,
+                        width: size.width * 0.8,
+                        child: const PasswordField()),
+                    SizedBox(height: size.height * 0.015),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          height: size.height * 0.075,
+                          width: size.width * 0.8,
+                          child: const DecoratedBox(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  color: Color.fromRGBO(29, 115, 137, 1))),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.075,
+                          width: size.width * 0.8,
+                          child: TextButton(
+                              onPressed: () {
+                                // Validate returns true if the form is valid, or false otherwise.
+                                if (formGlobalKey3.currentState!.validate()) {
+                                  // If the form is valid, display a snackbar. In the real world,
+                                  // you'd often call a server or save the information in a database.
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return Main(
+                                            userEmail: widget.userEmail,
+                                            userName: widget.userName,
+                                            userSurname: widget.userSurname);
+                                      },
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Text("Login",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.normal))),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

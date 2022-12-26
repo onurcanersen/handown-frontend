@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handown/Screens/Main/CartLayout.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:handown/Components/shopping_item.dart';
@@ -19,6 +20,20 @@ class _SearchLayoutState extends State<SearchLayout> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      floatingActionButton: Builder(builder: (context) {
+        return FloatingActionButton(
+          backgroundColor: Colors.black,
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const CartLayout();
+              },
+            ),
+          ),
+          child: const Icon(Icons.shopping_bag),
+        );
+      }),
       body: Padding(
         padding: EdgeInsets.only(
           left: size.height * 0.025,
@@ -28,7 +43,7 @@ class _SearchLayoutState extends State<SearchLayout> {
         ),
         child: Column(
           children: [
-            Center(
+            const Center(
               child: Text(
                 'Search For Anything',
                 style: TextStyle(
@@ -57,7 +72,7 @@ class _SearchLayoutState extends State<SearchLayout> {
                   });
                 }
               },
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black87,
               ),
               decoration: InputDecoration(
@@ -65,9 +80,9 @@ class _SearchLayoutState extends State<SearchLayout> {
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                fillColor: Color(0xffd7e4e7),
+                fillColor: const Color(0xffd7e4e7),
                 filled: true,
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 prefixIconColor: Colors.white,
                 hintText: 'The Joker Figure',
               ),

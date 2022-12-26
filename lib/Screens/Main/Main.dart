@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handown/Models/shopping_model.dart';
+import 'package:handown/Screens/Main/CartLayout.dart';
 import 'package:handown/Screens/Main/HomeLayout.dart';
 import 'package:handown/Screens/Main/ProfileLayout.dart';
 import 'package:handown/Screens/Main/SearchLayout.dart';
@@ -49,14 +50,23 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   late final List<Widget> _widgetOptions = <Widget>[
-    ChangeNotifierProvider(
-      create: (context) => CartModel(),
-      child: const MaterialApp(
-        home: HomeLayout(),
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => CartModel(),
+          child: const MaterialApp(
+            home: HomeLayout(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartModel(),
+          child: const MaterialApp(
+            home: SearchLayout(),
+          ),
+        ),
+      ],
     ),
-    const SearchLayout(),
-
+    //CartLayout(),
     ProfileLayout(
         userEmail: widget.userEmail,
         userName: widget.userName,
@@ -84,6 +94,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               icon: Icon(Icons.search),
               label: 'Search',
             ),
+            /*
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),*/
             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
               label: 'Profile',
@@ -107,17 +122,39 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               });
             case 1:
               return CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
-                  child: SearchLayout(),
+                return SafeArea(
+                  child: CupertinoPageScaffold(
+                    child: ChangeNotifierProvider(
+                      create: (context) => CartModel(),
+                      child: const MaterialApp(
+                        home: SearchLayout(),
+                      ),
+                    ),
+                  ),
                 );
-              });
+              }); /*
             case 2:
               return CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
-                  child: ProfileLayout(
-                      userEmail: widget.userEmail,
-                      userName: widget.userName,
-                      userSurname: widget.userSurname),
+                return SafeArea(
+                  child: CupertinoPageScaffold(
+                    child: ChangeNotifierProvider(
+                      create: (context) => CartModel(),
+                      child: const MaterialApp(
+                        home: CartLayout(),
+                      ),
+                    ),
+                  ),
+                );
+              });*/
+            case 2:
+              return CupertinoTabView(builder: (context) {
+                return SafeArea(
+                  child: CupertinoPageScaffold(
+                    child: ProfileLayout(
+                        userEmail: widget.userEmail,
+                        userName: widget.userName,
+                        userSurname: widget.userSurname),
+                  ),
                 );
               });
             default:
