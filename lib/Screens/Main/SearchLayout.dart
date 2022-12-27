@@ -18,7 +18,6 @@ class _SearchLayoutState extends State<SearchLayout> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
@@ -39,7 +38,7 @@ class _SearchLayoutState extends State<SearchLayout> {
           left: size.height * 0.025,
           right: size.height * 0.025,
           bottom: size.height * 0.025,
-          top: size.height * 0.080,
+          top: size.height * 0.04,
         ),
         child: Column(
           children: [
@@ -110,6 +109,8 @@ class _SearchLayoutState extends State<SearchLayout> {
                 );
               },
             ),
+
+            //Bu expanded değişecek abi yoksa aşağıya kaymıyor
             Expanded(
               child: ListView(),
             )

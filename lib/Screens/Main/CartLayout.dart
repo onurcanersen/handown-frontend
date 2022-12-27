@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:handown/Screens/Main/HomeLayout.dart';
+import 'package:handown/Screens/Main/PaymentLayout.dart';
 import 'package:provider/provider.dart';
 import 'package:handown/Models/shopping_model.dart';
 
@@ -23,7 +25,7 @@ class CartLayout extends StatelessWidget {
             children: [
               // Let's order fresh items for you
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Text(
                   "My Cart",
                   style: GoogleFonts.notoSerif(
@@ -39,7 +41,7 @@ class CartLayout extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: ListView.builder(
                     itemCount: value.cartItems.length,
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -114,19 +116,25 @@ class CartLayout extends StatelessWidget {
                           border: Border.all(color: Colors.green.shade200),
                           borderRadius: BorderRadius.circular(28),
                         ),
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          children: const [
-                            Text(
-                              'Pay Now',
-                              style: TextStyle(color: Colors.white),
+                        padding: const EdgeInsets.all(1),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                            color: Colors.white,
+                          ),
+                          onPressed: () => {
+                            Provider.of<CartModel>(context, listen: false)
+                                .removeAllFromCart(),
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return PaymentLayout();
+                                },
+                              ),
                             ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 16,
-                              color: Colors.white,
-                            ),
-                          ],
+                          },
                         ),
                       ),
                     ],

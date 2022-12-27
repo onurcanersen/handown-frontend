@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:handown/Components/shopping_item.dart';
 import 'package:handown/Models/shopping_model.dart';
 import 'package:handown/Screens/Main/CartLayout.dart';
+import 'package:handown/Screens/Main/PaymentLayout.dart';
 import 'package:provider/provider.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -27,9 +28,6 @@ class _HomeLayoutState extends State<HomeLayout> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
-            height: size.height * 0.04,
-          ),
           CarouselSlider(
             items: imgList
                 .map((item) => Center(
@@ -110,7 +108,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return HomeLayout();
+                          return PaymentLayout();
                         },
                       ),
                     ),
