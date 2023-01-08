@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:handown/Screens/Login/LoginLayout.dart';
 
 import 'EditProfileLayout.dart';
 import 'SellProfileLayout.dart';
@@ -117,7 +116,15 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                           child: const Text('Cancel'),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.pop(context, 'Yes'),
+                          onPressed: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return LoginLayout(
+                                                    );
+                                              },
+                                            ),
+                                          ),
                           child: const Text('Yes, I am sure'),
                         ),
                       ],
