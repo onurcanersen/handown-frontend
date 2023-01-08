@@ -5,6 +5,7 @@ import 'package:handown/Components/shopping_item.dart';
 import 'package:handown/Models/shopping_model.dart';
 import 'package:handown/Screens/Main/CartLayout.dart';
 import 'package:handown/Screens/Main/PaymentLayout.dart';
+import 'package:handown/Screens/Main/SearchLayout.dart';
 import 'package:provider/provider.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -104,14 +105,19 @@ class _HomeLayoutState extends State<HomeLayout> {
                     ),
                   ),
                   onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return PaymentLayout();
-                        },
-                      ),
+                    showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Hello'),
+                      content: const Text('Welcome to the app, continue with search tab if you want to search products.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'I got it.'),
+                          child: const Text('Cancel'),
+                        ),
+                      ],
                     ),
+                  ),
                   },
                 ),
               ),

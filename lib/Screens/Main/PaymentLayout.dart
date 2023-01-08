@@ -196,7 +196,7 @@ class _PaymentLayoutState extends State<PaymentLayout> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return SearchLayout();
+                              return HomeLayout();
                             },
                           ),
                         ),

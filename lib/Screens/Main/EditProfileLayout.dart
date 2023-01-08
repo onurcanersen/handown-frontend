@@ -167,7 +167,7 @@ class _EditProfileLayoutState extends State<EditProfileLayout> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return Main(
+                                        return ProfileLayout(
                                             userEmail: widget.userEmail,
                                             userName: widget.userName,
                                             userSurname: widget.userSurname);
@@ -176,7 +176,7 @@ class _EditProfileLayoutState extends State<EditProfileLayout> {
                                   );
                                 }
                               },
-                              child: const Text("Login",
+                              child: const Text("Edit",
                                   style: TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
