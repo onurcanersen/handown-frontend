@@ -1,8 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'EditProfileLayout.dart';
 import 'SellProfileLayout.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ProfileLayout extends StatefulWidget {
   ProfileLayout(
@@ -140,18 +144,52 @@ class _ProfileLayoutState extends State<ProfileLayout> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () => {
+              onPressed: () async {
+
+                final id_response = await http.post(
+                    Uri.parse(
+                        'https://us-central1-handown.cloudfunctions.net/users/getID'),
+                    headers: <String, String>{
+                      'Content-Type':
+                          'application/json; charset=UTF-8',
+                    },
+                    body: jsonEncode(<String, String>{
+                      "email":widget.userEmail,
+                      "name":widget.userName,
+                      "surname":widget.userSurname
+                    }),
+                  );
+                final id = (jsonDecode(id_response.body)[0]["id"]).toString();
+                final response = await http.post(
+                    Uri.parse(
+                        'https://us-central1-handown.cloudfunctions.net/products/searchByUser'),
+                    headers: <String, String>{
+                      'Content-Type':
+                          'application/json; charset=UTF-8',
+                    },
+                    body: jsonEncode(<String, String>{
+                      "id": id
+                    }),
+                  );
+                
+                final products = jsonDecode(response.body);
+
+                final item_count = products.length;
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
+
                       return SellProfileLayout(
                           userEmail: widget.userEmail,
                           userName: widget.userName,
-                          userSurname: widget.userSurname);
+                          userSurname: widget.userSurname,
+                          itemCount: item_count,
+                          products: products);
                     },
                   ),
-                ),
+                );
               },
             ),
           ),

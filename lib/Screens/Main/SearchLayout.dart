@@ -98,10 +98,18 @@ class _SearchLayoutState extends State<SearchLayout> {
                 childAspectRatio: 1 / 1,
               ),
               itemBuilder: (context, index) {
+                final path;
+                if (products[index]["product_name"] == "boot" || products[index]["product_name"] == "shirt" || 
+                    products[index]["product_name"] == "laptop" || products[index]["product_name"] == "phone" || products[index]["product_name"] == "gamepad"){
+                      path = products[index]["product_name"];
+                }
+                else{
+                      path = "handown";
+                }
                 return ShoppingItemTile(
                   itemName: products[index]["product_name"],
                   itemPrice: products[index]["product_price"],
-                  imagePath: "assets/images/laptop.png",
+                  imagePath: "assets/images/" + path + ".png",
                   color: Colors.green,
                   onPressed: () =>
                       Provider.of<CartModel>(context, listen: false)

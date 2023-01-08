@@ -4,6 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:handown/Screens/Login/LoginLayout.dart';
 import 'package:handown/Screens/Main/EditProfileLayout.dart';
 import 'package:handown/Screens/Main/ProfileLayout.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+TextEditingController nameController = TextEditingController();
+TextEditingController priceController = TextEditingController();
 
 class AnotherProductLayout extends StatefulWidget {
   AnotherProductLayout(
@@ -79,6 +84,7 @@ class _AnotherProductLayoutState extends State<AnotherProductLayout> {
                       height: size.height * 0.08,
                       width: size.width * 0.8,
                       child: TextFormField(
+                        controller: nameController,
                         keyboardType: TextInputType.streetAddress,
                         validator: (sValue) {
                           if (sValue == null || sValue.isEmpty) {
@@ -109,6 +115,7 @@ class _AnotherProductLayoutState extends State<AnotherProductLayout> {
                       height: size.height * 0.08,
                       width: size.width * 0.8,
                       child: TextFormField(
+                        controller: priceController,
                         keyboardType: TextInputType.emailAddress,
                         validator: (sValue) {
                           if (sValue == null || sValue.isEmpty) {
@@ -121,60 +128,6 @@ class _AnotherProductLayoutState extends State<AnotherProductLayout> {
                               borderRadius: BorderRadius.circular(50),
                             ),
                             hintText: "123"),
-                      ),
-                    ),
-                    SizedBox(height: size.height * 0.015),
-                    const Align(
-                      alignment: Alignment(-0.80, 0),
-                      child: Text("Image",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 15.5,
-                              color: Colors.black,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    SizedBox(height: size.height * 0.01),
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          left: size.height * 0.02,
-                          right: size.height * 0.024,
-                          bottom: size.height * 0.05,
-                          top: size.height * 0.012,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            color: Color.fromRGBO(29, 115, 137, 1),
-                          ),
-                          child: TextButton(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: size.height * 0.017,
-                                  horizontal: size.height * 0.18),
-                              child: const Text(
-                                'Add Image',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            onPressed: () => {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return AnotherProductLayout(
-                                        userEmail: widget.userEmail,
-                                        userName: widget.userName,
-                                        userSurname: widget.userSurname);
-                                  },
-                                ),
-                              ),
-                            },
-                          ),
-                        ),
                       ),
                     ),
                     SizedBox(height: size.height * 0.15),
@@ -203,7 +156,35 @@ class _AnotherProductLayoutState extends State<AnotherProductLayout> {
                                 ),
                               ),
                             ),
-                            onPressed: () => {
+                            onPressed: () async {
+                              final id_response = await http.post(
+                                  Uri.parse(
+                                      'https://us-central1-handown.cloudfunctions.net/users/getID'),
+                                  headers: <String, String>{
+                                    'Content-Type':
+                                        'application/json; charset=UTF-8',
+                                  },
+                                  body: jsonEncode(<String, String>{
+                                    "email":widget.userEmail,
+                                    "name":widget.userName,
+                                    "surname":widget.userSurname
+                                  }),
+                                );
+                              final id = (jsonDecode(id_response.body)[0]["id"]).toString();
+                              final response = await http.post(
+                                  Uri.parse(
+                                      'https://us-central1-handown.cloudfunctions.net/products/add'),
+                                  headers: <String, String>{
+                                    'Content-Type':
+                                        'application/json; charset=UTF-8',
+                                  },
+                                  body: jsonEncode(<String, String>{
+                                    "product_name": nameController.text,
+                                    "product_price": priceController.text,
+                                    "product_rating": "0",
+                                    "seller_id": id
+                                  }),
+                                );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -211,10 +192,11 @@ class _AnotherProductLayoutState extends State<AnotherProductLayout> {
                                     return ProfileLayout(
                                         userEmail: widget.userEmail,
                                         userName: widget.userName,
-                                        userSurname: widget.userSurname);
+                                        userSurname: widget.userSurname
+                                        );
                                   },
                                 ),
-                              ),
+                              );
                             },
                           ),
                         ),

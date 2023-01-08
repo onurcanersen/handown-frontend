@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:handown/Screens/Main/AnotherProductLayout.dart';
+import 'package:handown/Screens/Main/CartLayout.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SellProfileLayout extends StatefulWidget {
   SellProfileLayout(
       {Key? key,
       required this.userEmail,
       required this.userName,
-      required this.userSurname})
+      required this.userSurname,
+      required this.itemCount,
+      required this.products})
       : super(key: key);
 
   final String userEmail;
   final String userName;
   final String userSurname;
+  final int itemCount;
+  final List<dynamic> products;
 
   @override
   State<SellProfileLayout> createState() => _SellProfileLayoutState();
@@ -52,9 +59,22 @@ class _SellProfileLayoutState extends State<SellProfileLayout> {
                 padding: EdgeInsets.all(size.height * 0.015),
                 child: ListView.builder(
                   //Buradan sonrasını hardcode yazdım, database entegrasyonunda düzenleriz
-                  itemCount: 7, //hardcode
+                  itemCount: widget.itemCount, //hardcode
                   padding: EdgeInsets.all(size.height * 0.015),
                   itemBuilder: (context, index) {
+                    
+                    String name = widget.products[index]["product_name"];
+                    String price = widget.products[index]["product_price"];
+
+                    final path;
+                    if (widget.products[index]["product_name"] == "boot" || widget.products[index]["product_name"] == "shirt" || 
+                        widget.products[index]["product_name"] == "laptop" || widget.products[index]["product_name"] == "phone" || widget.products[index]["product_name"] == "gamepad"){
+                          path = widget.products[index]["product_name"];
+                    }
+                    else{
+                          path = "handown";
+                    }
+                    
                     return Padding(
                       padding: EdgeInsets.all(size.height * 0.02),
                       child: Container(
@@ -63,18 +83,18 @@ class _SellProfileLayoutState extends State<SellProfileLayout> {
                             borderRadius: BorderRadius.circular(8)),
                         child: ListTile(
                             leading: Image.asset(
-                              'assets/images/gamepad.png',
+                              "assets/images/" + path + ".png",
                               height: 36,
                             ),
-                            title: const Text(
-                              'Product Name',
-                              style: TextStyle(fontSize: 18),
+                            title: Text(
+                              name,
+                              style: TextStyle(fontSize: 18)
                             ),
-                            subtitle: const Text(
-                              '\$' + 'Price',
+                            subtitle: Text(
+                              '\$' + price,
                               style: TextStyle(fontSize: 12),
                             ),
-                            trailing: const Icon(Icons.cancel)),
+                            //trailing: const Icon(Icons.cancel)),
                         //Trailing aslında aşağıdaki gibi olmalı ama  şu an böyle değil
                         /*trailing: IconButton(
                             icon: const Icon(Icons.cancel),
@@ -83,7 +103,7 @@ class _SellProfileLayoutState extends State<SellProfileLayout> {
                                     .removeItemFromCart(index),
                           ),*/
                       ),
-                    );
+                    ));
                   },
                 ),
               ),
