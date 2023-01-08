@@ -19,6 +19,7 @@ class _SearchLayoutState extends State<SearchLayout> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
           backgroundColor: Colors.black,

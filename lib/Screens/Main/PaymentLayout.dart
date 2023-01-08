@@ -185,7 +185,7 @@ class _PaymentLayoutState extends State<PaymentLayout> {
                             vertical: size.height * 0.017,
                             horizontal: size.height * 0.13),
                         child: const Text(
-                          'Add Another Product',
+                          'Finish The Payment',
                           style: TextStyle(
                             color: Colors.white,
                           ),
