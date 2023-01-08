@@ -92,7 +92,7 @@ class _SearchLayoutState extends State<SearchLayout> {
             ),
             GridView.builder(
               shrinkWrap: true,
-              padding: const EdgeInsets.all(6),
+              padding: const EdgeInsets.all(1),
               itemCount: products.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
